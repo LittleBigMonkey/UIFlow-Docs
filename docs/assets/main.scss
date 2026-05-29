@@ -129,20 +129,29 @@ blockquote {
   color: var(--uiflow-muted);
 }
 
+.highlighter-rouge,
+.highlighter-rouge .highlight,
 .highlight,
 pre,
 code {
-  background: #101018;
+  background: #101018 !important;
   color: var(--uiflow-text);
 }
 
+.highlighter-rouge {
+  border-radius: 8px;
+  margin: 0 0 16px;
+}
+
+.highlighter-rouge .highlight,
 .highlight {
   border: 1px solid var(--uiflow-border);
   border-radius: 8px;
-  margin: 0 0 16px;
+  margin: 0;
   overflow: auto;
 }
 
+.highlighter-rouge .highlight pre,
 .highlight pre,
 pre {
   border: 1px solid var(--uiflow-border);
@@ -151,11 +160,13 @@ pre {
   padding: 16px 18px;
 }
 
+.highlighter-rouge .highlight pre,
 .highlight pre {
   border: 0;
   margin: 0;
 }
 
+.highlighter-rouge code,
 code {
   border: 1px solid var(--uiflow-border);
   border-radius: 6px;
@@ -163,9 +174,18 @@ code {
 }
 
 pre code,
+.highlighter-rouge .highlight code,
 .highlight code {
   border: 0;
   padding: 0;
+}
+
+.highlighter-rouge .highlight table,
+.highlighter-rouge .highlight tbody,
+.highlighter-rouge .highlight tr,
+.highlighter-rouge .highlight td {
+  background: #101018 !important;
+  border: 0;
 }
 
 .highlight .s,
