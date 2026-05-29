@@ -129,24 +129,72 @@ blockquote {
   color: var(--uiflow-muted);
 }
 
+.highlight,
 pre,
 code {
-  background-color: #101018;
-  border: 1px solid var(--uiflow-border);
-  color: #f0f0f5;
+  background: #101018;
+  color: var(--uiflow-text);
 }
 
-pre {
+.highlight {
+  border: 1px solid var(--uiflow-border);
   border-radius: 8px;
+  margin: 0 0 16px;
+  overflow: auto;
+}
+
+.highlight pre,
+pre {
+  border: 1px solid var(--uiflow-border);
+  border-radius: 8px;
+  line-height: 1.55;
   padding: 16px 18px;
 }
 
-code {
-  border-radius: 6px;
+.highlight pre {
+  border: 0;
+  margin: 0;
 }
 
-pre code {
+code {
+  border: 1px solid var(--uiflow-border);
+  border-radius: 6px;
+  padding: 1px 5px;
+}
+
+pre code,
+.highlight code {
   border: 0;
+  padding: 0;
+}
+
+.highlight .s,
+.highlight .s1,
+.highlight .s2,
+.highlight .sb,
+.highlight .dl {
+  color: #f472b6;
+}
+
+.highlight .k,
+.highlight .kc,
+.highlight .kd,
+.highlight .kn,
+.highlight .nt {
+  color: #c4b5fd;
+}
+
+.highlight .na,
+.highlight .nc,
+.highlight .nf,
+.highlight .nl {
+  color: #67e8f9;
+}
+
+.highlight .m,
+.highlight .mi,
+.highlight .mf {
+  color: #fbbf24;
 }
 
 table {
