@@ -12,7 +12,6 @@ header_pages:
   - transitions.md
   - troubleshooting.md
   - support.md
-  - publishing.md
 
 exclude:
   - README.md
