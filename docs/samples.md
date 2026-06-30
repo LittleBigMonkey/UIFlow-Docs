@@ -67,13 +67,13 @@ Shows:
 
 ## 06 Persistent NavBar
 
-Shell layout with persistent top or bottom navigation while UIFlow swaps content pages.
+Shell layout with a persistent navigation bar while UIFlow swaps content pages.
 
 Shows:
 
-- Multiple `UIDocument` layers.
-- Shared `PanelSettings`.
-- UI outside the page navigation lifecycle.
+- `FlowPersistent` surface brought up from the `Start` node.
+- Tab buttons auto-wired to `<PersistentId>.<buttonName>` triggers routed by the graph.
+- UI outside the page navigation lifecycle, with no navigation code in the surface script.
 
 ## 07 Modal Dialogs
 

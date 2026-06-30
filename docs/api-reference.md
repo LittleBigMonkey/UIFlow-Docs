@@ -75,6 +75,28 @@ public static void GoHome();
 
 Clears history and returns to the home view set by `Initialize`.
 
+#### ShowModal
+
+```csharp
+public static void ShowModal(
+    string modalId,
+    object data = null,
+    TransitionAsset show = null);
+```
+
+Shows a registered modal overlay on its own layer above the active page. The modal stays visible until `CloseModal` is called. `data` is forwarded to the modal's `IFlowViewHandler.OnViewShow`.
+
+#### CloseModal
+
+```csharp
+public static void CloseModal(
+    string action = null,
+    object resultData = null,
+    TransitionAsset hide = null);
+```
+
+Hides the active modal. `action` and `resultData` are forwarded as a result callback to code that opened the modal.
+
 #### Trigger
 
 ```csharp
@@ -82,6 +104,30 @@ public static void Trigger(string triggerName, object data = null);
 ```
 
 Raises a named trigger. Graph navigation and custom listeners can react through `TriggerRaised`.
+
+#### ShowPersistent
+
+```csharp
+public static void ShowPersistent(string id, TransitionAsset show = null);
+```
+
+Shows a registered persistent surface on its own band above the active page. It stays visible until `HidePersistent` is called; view and modal navigation never affect it. No-op when already shown. `show` plays as it appears, or shows it instantly when null.
+
+#### HidePersistent
+
+```csharp
+public static void HidePersistent(string id, TransitionAsset hide = null);
+```
+
+Hides a registered persistent surface. No-op when it is not currently shown. `hide` plays as it disappears, or hides it instantly when null.
+
+#### IsPersistentShown
+
+```csharp
+public static bool IsPersistentShown(string id);
+```
+
+True while the named persistent surface is shown.
 
 ### FlowView
 
@@ -113,6 +159,25 @@ public interface IFlowViewHandler
 ```
 
 `OnViewShow` receives the payload passed through `ShowView`, graph triggers, or button `userData`.
+
+### FlowPersistent
+
+`FlowPersistent` is a `MonoBehaviour` for a surface with a manual lifecycle, layered above pages on its own sorting band and never touched by view or modal navigation. It requires `UIDocument`.
+
+```csharp
+[RequireComponent(typeof(UIDocument))]
+public class FlowPersistent : MonoBehaviour
+```
+
+#### PersistentId
+
+```csharp
+public string PersistentId { get; }
+```
+
+Returns the assigned UXML asset name. Use this value in graph `PersistentNode.viewId` and as the `id` for `FlowManager.ShowPersistent` / `HidePersistent`.
+
+The surface registers itself with `FlowManager` on `Awake` and unregisters on `OnDestroy`. Its named `Button` elements raise `<PersistentId>.<buttonName>` triggers, matching the `FlowView` convention.
 
 ## Namespace UIFlow.Graph
 
@@ -190,6 +255,47 @@ public sealed class ViewNode : NavigationNode
     public bool skipOnBack;
 }
 ```
+
+### PersistentNode
+
+Shows a persistent surface from the graph. Wired to the `Start` node, it brings the surface up at launch.
+
+```csharp
+public sealed class PersistentNode : ViewNodeBase { }
+```
+
+`viewId` is the `PersistentId` of the surface to show; `showTransition` plays as it appears.
+
+### HidePersistentNode
+
+Action node that hides a named persistent surface. The target is identified explicitly because persistent surfaces are not stacked.
+
+```csharp
+public sealed class HidePersistentNode : NavigationNode
+{
+    public string targetId;
+}
+```
+
+### ModalNode
+
+Shows a modal overlay above the current page.
+
+```csharp
+public sealed class ModalNode : ViewNodeBase { }
+```
+
+`viewId` is the registered modal id; `showTransition` plays as it appears. The modal receives incoming trigger data via `IFlowViewHandler.OnViewShow`.
+
+### CloseModalNode
+
+Action node that closes the active modal.
+
+```csharp
+public sealed class CloseModalNode : NavigationNode { }
+```
+
+A button click (edge source) becomes the result action, passed back to the code that opened the modal.
 
 ### CustomTriggerNode
 
