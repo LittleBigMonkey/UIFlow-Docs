@@ -32,9 +32,9 @@ Tools > UIFlow > Install Dependencies
 1. Create a graph asset from `Create > UIFlow > Navigation Graph`.
 2. Double-click the graph asset to open the graph editor.
 3. Add one `Start` node.
-4. Add one `View` node for each page.
+4. Add one `Page` node for each page.
 5. Connect `Start` to the first view.
-6. Connect view ports to other views, `GoBack`, or `GoHome` nodes.
+6. Connect page ports to other pages, `GoBack`, or `GoHome` nodes.
 
 Button ports use UIToolkit button names. A button named `next-button` inside a view named `Home` emits:
 
@@ -53,9 +53,9 @@ Create one GameObject per view:
 
 1. Add `UIDocument`.
 2. Assign the view UXML asset.
-3. Add `FlowView`.
+3. Add `FlowPage`.
 
-The view id is the assigned UXML asset name. Keep graph `viewId` values aligned with those UXML names.
+The page id is the assigned UXML asset name. Keep graph `viewId` values aligned with those UXML names.
 
 ## Run
 

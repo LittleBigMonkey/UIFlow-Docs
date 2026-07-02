@@ -12,9 +12,9 @@ Check:
 - A `NavigationGraphRuntime` exists in the scene.
 - The `graph` field is assigned.
 - The graph has a `Start` node.
-- The `Start` node connects to a `ViewNode`.
-- The target `ViewNode.viewId` matches a `FlowView.ViewId`.
-- The view GameObject has both `UIDocument` and `FlowView`.
+- The `Start` node connects to a `PageNode`.
+- The target `PageNode.viewId` matches a `FlowPage.Id`.
+- The page GameObject has both `UIDocument` and `FlowPage`.
 
 ## A Button Does Not Navigate
 
@@ -23,7 +23,7 @@ Check:
 - The button has a non-empty `name` in UXML.
 - The view is active when clicked.
 - The graph edge starts from the matching view port.
-- The trigger name follows `<ViewId>.<buttonName>`.
+- The trigger name follows `<Id>.<buttonName>`.
 
 Example:
 
@@ -36,12 +36,12 @@ Catalog.item-selected
 Check:
 
 - For buttons, set `button.userData` before the click.
-- For manual navigation, pass data to `FlowManager.ShowView` or `FlowManager.Trigger`.
+- For manual navigation, pass data to `FlowManager.ShowPage` or `FlowManager.Trigger`.
 - In `OnViewShow`, cast to the expected type carefully.
 
 ## Back Navigation Skips A View
 
-The view may have `skipOnBack` enabled on its `ViewNode`, or navigation may have passed `skipOnBack: true` to `FlowManager.ShowView`.
+The page may have `skipOnBack` enabled on its `PageNode`, or navigation may have passed `skipOnBack: true` to `FlowManager.ShowPage`.
 
 ## Transitions Are Missing
 
@@ -55,11 +55,11 @@ Check:
 
 ## Modal Pages Replace The Current Page
 
-That is expected for normal UIFlow navigation. For modals, use a separate overlay `UIDocument` layered above the page and communicate with `FlowManager.TriggerRaised`, as shown in the modal dialogs sample.
+That is expected for normal UIFlow page navigation. For overlays, add a `FlowModal` to a separate `UIDocument`, open it with a `ModalNode` or `FlowManager.OpenModal`, and close it with a `CloseModalNode` or `FlowManager.CloseModal`.
 
 ## Duplicate View Id Warning
 
-Each `FlowView.ViewId` must be unique. Because `ViewId` comes from the assigned UXML asset name, duplicate UXML names can create duplicate ids.
+Each `FlowPage.Id`, `FlowModal.Id`, or `FlowPersistent.Id` must be unique within its surface type. Because `Id` comes from the assigned UXML asset name, duplicate UXML names can create duplicate ids.
 
 ## Support Request Checklist
 

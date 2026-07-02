@@ -13,13 +13,37 @@ This reference covers the public API intended for users of UIFlow. It does not i
 
 Static navigation API.
 
-#### CurrentViewId
+#### CurrentPageId
 
 ```csharp
-public static string CurrentViewId { get; }
+public static string CurrentPageId { get; }
 ```
 
-The currently displayed view id, or `null` if no view is active.
+The currently displayed page id, or `null` if no page is active.
+
+#### ModalDepth
+
+```csharp
+public static int ModalDepth { get; }
+```
+
+Number of modals currently stacked above the active page.
+
+#### IsModalOpen
+
+```csharp
+public static bool IsModalOpen { get; }
+```
+
+True while at least one modal overlay is open.
+
+#### TopModalId
+
+```csharp
+public static string TopModalId { get; }
+```
+
+Id of the top-most open modal, or `null` when none is open.
 
 #### HistoryChanged
 
@@ -37,27 +61,44 @@ public static event Action<string, object> TriggerRaised;
 
 Raised whenever `Trigger` is called. Arguments are trigger name and optional payload.
 
+#### ModalStackChanged
+
+```csharp
+public static event Action<int> ModalStackChanged;
+```
+
+Raised whenever modal stack depth changes. The argument is the new modal count.
+
+#### ModalClosed
+
+```csharp
+public static event Action<ModalResult> ModalClosed;
+```
+
+Raised when a modal closes.
+
 #### Initialize
 
 ```csharp
-public static void Initialize(string homeViewId, object data = null);
+public static void Initialize(string homePageId, object data = null);
 ```
 
-Sets the home view and shows it as the initial screen. Usually called by `NavigationGraphRuntime`.
+Sets the home page and shows it as the initial screen. Usually called by `NavigationGraphRuntime`.
 
-#### ShowView
+#### ShowPage
 
 ```csharp
-public static void ShowView(
-    string viewId,
+public static void ShowPage(
+    string pageId,
     object data = null,
     TransitionAsset hideOverride = null,
     TransitionAsset showOverride = null,
     ViewTransitionMode modeOverride = ViewTransitionMode.Default,
-    bool skipOnBack = false);
+    bool skipOnBack = false,
+    bool reverseOnBack = true);
 ```
 
-Navigates forward to a registered view. The current view is pushed onto history. `data` is forwarded to the target view's `IFlowViewHandler.OnViewShow`.
+Navigates forward to a registered page. The current page is pushed onto history. `data` is forwarded to the target page's `IFlowViewHandler.OnViewShow`.
 
 #### GoBack
 
@@ -65,7 +106,7 @@ Navigates forward to a registered view. The current view is pushed onto history.
 public static void GoBack();
 ```
 
-Navigates to the previous view in history. Frames marked `skipOnBack` are skipped.
+Navigates to the previous page in history. Frames marked `skipOnBack` are skipped. If a modal is open, Back closes the top modal before touching navigation history.
 
 #### GoHome
 
@@ -73,18 +114,31 @@ Navigates to the previous view in history. Frames marked `skipOnBack` are skippe
 public static void GoHome();
 ```
 
-Clears history and returns to the home view set by `Initialize`.
+Clears history and returns to the home page set by `Initialize`.
 
-#### ShowModal
+#### OpenModal
 
 ```csharp
-public static void ShowModal(
+public static void OpenModal(
     string modalId,
     object data = null,
-    TransitionAsset show = null);
+    TransitionAsset showOverride = null,
+    TransitionAsset hideOverride = null);
 ```
 
-Shows a registered modal overlay on its own layer above the active page. The modal stays visible until `CloseModal` is called. `data` is forwarded to the modal's `IFlowViewHandler.OnViewShow`.
+Opens a registered modal overlay above the active page. Modals stack above each other until closed. `data` is forwarded to the modal's `IFlowViewHandler.OnViewShow`.
+
+#### OpenModalAsync
+
+```csharp
+public static Awaitable<ModalResult> OpenModalAsync(
+    string modalId,
+    object data = null,
+    TransitionAsset showOverride = null,
+    TransitionAsset hideOverride = null);
+```
+
+Opens a modal and completes with a `ModalResult` when that modal closes.
 
 #### CloseModal
 
@@ -92,10 +146,18 @@ Shows a registered modal overlay on its own layer above the active page. The mod
 public static void CloseModal(
     string action = null,
     object resultData = null,
-    TransitionAsset hide = null);
+    string modalId = null);
 ```
 
-Hides the active modal. `action` and `resultData` are forwarded as a result callback to code that opened the modal.
+Closes the top modal by default. When `modalId` is supplied, closes the top-most matching modal. `action` and `resultData` are reported through `ModalClosed` and any awaiting `OpenModalAsync` call.
+
+#### CloseAllModals
+
+```csharp
+public static void CloseAllModals();
+```
+
+Closes every open modal, top-down, each as a plain dismissal.
 
 #### Trigger
 
@@ -129,22 +191,40 @@ public static bool IsPersistentShown(string id);
 
 True while the named persistent surface is shown.
 
-### FlowView
+### FlowPage
 
-`FlowView` is a `MonoBehaviour` placed on each page GameObject. It requires `UIDocument`.
+`FlowPage` is a `MonoBehaviour` placed on each page GameObject. It requires `UIDocument`.
 
 ```csharp
 [RequireComponent(typeof(UIDocument))]
-public class FlowView : MonoBehaviour
+public class FlowPage : FlowView
 ```
 
-#### ViewId
+#### Id
 
 ```csharp
-public string ViewId { get; }
+public string Id { get; }
 ```
 
-Returns the assigned UXML asset name. Use this value in graph `ViewNode.viewId`.
+Returns the assigned UXML asset name. Use this value in graph `PageNode.viewId`.
+
+### FlowModal
+
+`FlowModal` is a `MonoBehaviour` for overlay dialogs. It requires `UIDocument`.
+
+```csharp
+[RequireComponent(typeof(UIDocument))]
+public class FlowModal : FlowView
+```
+
+Important fields:
+
+```csharp
+public const string BackdropElementName = "backdrop";
+public bool dismissOnBackdropClick;
+```
+
+Its `Id` is the assigned UXML asset name. Use this value in graph `ModalNode.viewId` and as the `modalId` for `FlowManager.OpenModal`.
 
 ### IFlowViewHandler
 
@@ -158,7 +238,7 @@ public interface IFlowViewHandler
 }
 ```
 
-`OnViewShow` receives the payload passed through `ShowView`, graph triggers, or button `userData`.
+`OnViewShow` receives the payload passed through `ShowPage`, `OpenModal`, graph triggers, or button `userData`.
 
 ### FlowPersistent
 
@@ -166,18 +246,18 @@ public interface IFlowViewHandler
 
 ```csharp
 [RequireComponent(typeof(UIDocument))]
-public class FlowPersistent : MonoBehaviour
+public class FlowPersistent : FlowView
 ```
 
-#### PersistentId
+#### Id
 
 ```csharp
-public string PersistentId { get; }
+public string Id { get; }
 ```
 
 Returns the assigned UXML asset name. Use this value in graph `PersistentNode.viewId` and as the `id` for `FlowManager.ShowPersistent` / `HidePersistent`.
 
-The surface registers itself with `FlowManager` on `Awake` and unregisters on `OnDestroy`. Its named `Button` elements raise `<PersistentId>.<buttonName>` triggers, matching the `FlowView` convention.
+The surface registers itself with `FlowManager` on `Awake` and unregisters on `OnDestroy`. Its named `Button` elements raise `<Id>.<buttonName>` triggers, matching the `FlowPage` convention.
 
 ## Namespace UIFlow.Graph
 
@@ -240,12 +320,12 @@ public sealed class NavigationEdge
 }
 ```
 
-### ViewNode
+### PageNode
 
-Represents one `FlowView` in the graph.
+Represents one `FlowPage` in the graph.
 
 ```csharp
-public sealed class ViewNode : NavigationNode
+public sealed class PageNode : ViewNodeBase
 {
     public string viewId;
     public VisualTreeAsset viewUxml;
@@ -253,6 +333,7 @@ public sealed class ViewNode : NavigationNode
     public TransitionAsset showTransition;
     public TransitionAsset hideTransition;
     public bool skipOnBack;
+    public bool reverseOnBack;
 }
 ```
 
@@ -264,7 +345,7 @@ Shows a persistent surface from the graph. Wired to the `Start` node, it brings 
 public sealed class PersistentNode : ViewNodeBase { }
 ```
 
-`viewId` is the `PersistentId` of the surface to show; `showTransition` plays as it appears.
+`viewId` is the `Id` of the surface to show; `showTransition` plays as it appears.
 
 ### HidePersistentNode
 

@@ -72,7 +72,7 @@ Shell layout with a persistent navigation bar while UIFlow swaps content pages.
 Shows:
 
 - `FlowPersistent` surface brought up from the `Start` node.
-- Tab buttons auto-wired to `<PersistentId>.<buttonName>` triggers routed by the graph.
+- Tab buttons auto-wired to `<Id>.<buttonName>` triggers routed by the graph.
 - UI outside the page navigation lifecycle, with no navigation code in the surface script.
 
 ## 07 Modal Dialogs
