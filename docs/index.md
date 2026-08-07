@@ -3,8 +3,6 @@ layout: home
 title: UIFlow
 ---
 
-# UIFlow
-
 <section id="hero">
   <figure class="media-frame cover">
     <img src="{{ '/assets/media/cover.png' | relative_url }}" alt="UIFlow, graph navigation for Unity UI Toolkit" fetchpriority="high">
