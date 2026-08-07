@@ -5,7 +5,21 @@ title: UIFlow
 
 # UIFlow
 
+<section id="hero">
+  <figure class="media-frame cover">
+    <img src="{{ '/assets/media/cover.png' | relative_url }}" alt="UIFlow, graph navigation for Unity UI Toolkit" fetchpriority="high">
+  </figure>
+</section>
+
 UIFlow is a UIToolkit-based page management and graph-driven navigation package for Unity 6. It lets you describe UI navigation in a `NavigationGraph` asset, connect UXML button names to graph edges, and keep page logic in small view scripts.
+
+<section id="promo-video">
+  <h2>See UIFlow In Action</h2>
+  <video class="promo" controls playsinline preload="metadata" poster="{{ '/assets/media/cover.png' | relative_url }}">
+    <source src="{{ '/assets/media/uiflow-promo.mp4' | relative_url }}" type="video/mp4">
+    Your browser does not support embedded videos. <a href="{{ '/assets/media/uiflow-promo.mp4' | relative_url }}">Download the UIFlow presentation video</a>.
+  </video>
+</section>
 
 ## What UIFlow Provides
 
@@ -16,6 +30,33 @@ UIFlow is a UIToolkit-based page management and graph-driven navigation package 
 - Navigation history with back and home actions.
 - Optional LitMotion-powered transitions through `TransitionProfile` assets.
 - Importable samples for common UI patterns.
+
+<section id="feature-showcase">
+  <h2>Explore UIFlow</h2>
+  <div class="gallery">
+    <a class="media-frame" href="{{ '/concepts/' | relative_url }}">
+      <img src="{{ '/assets/media/screen-1.png' | relative_url }}" alt="Design UI navigation visually with the UIFlow graph" loading="lazy">
+    </a>
+    <a class="media-frame" href="{{ '/getting-started/' | relative_url }}">
+      <img src="{{ '/assets/media/screen-2.png' | relative_url }}" alt="Build interfaces with Unity UI Builder and connect them through UIFlow" loading="lazy">
+    </a>
+    <a class="media-frame" href="{{ '/transitions/' | relative_url }}">
+      <img src="{{ '/assets/media/screen-3.png' | relative_url }}" alt="Create reusable transition profiles for UIFlow pages and modals" loading="lazy">
+    </a>
+    <a class="media-frame" href="{{ '/concepts/' | relative_url }}">
+      <img src="{{ '/assets/media/screen-4.png' | relative_url }}" alt="Combine pages, modals, and persistent UI in complete flows" loading="lazy">
+    </a>
+    <a class="media-frame" href="{{ '/transitions/' | relative_url }}">
+      <img src="{{ '/assets/media/screen-5.png' | relative_url }}" alt="Run a responsive interface powered by a UIFlow graph" loading="lazy">
+    </a>
+    <a class="media-frame" href="{{ '/samples/' | relative_url }}">
+      <img src="{{ '/assets/media/screen-6.png' | relative_url }}" alt="Learn UIFlow through practical Unity UI Toolkit samples" loading="lazy">
+    </a>
+    <a class="media-frame" href="{{ '/api-reference/' | relative_url }}">
+      <img src="{{ '/assets/media/screen-7.png' | relative_url }}" alt="Control pages, modals, triggers, and data with the UIFlow API" loading="lazy">
+    </a>
+  </div>
+</section>
 
 ## Requirements
 
