@@ -3,9 +3,15 @@ layout: page
 title: Support
 ---
 
-# Support
+# Support And Community
 
-Use the UIFlow support forum or issue tracker provided with your package purchase.
+For support, questions, feature requests, and community discussions, join the official UIFlow Discord:
+
+## [Join The UIFlow Discord](https://discord.gg/dGN9EutdUm)
+
+Meet other UIFlow users, share what you are building, discuss workflows, and get help from the community.
+
+## Get Support
 
 When reporting a problem, include:
 
@@ -21,7 +27,7 @@ When reporting a problem, include:
 
 ## Feature Requests
 
-For feature requests, describe the workflow you are trying to build and why the current API does not cover it. Small examples are more helpful than broad feature names.
+Share feature requests on the [UIFlow Discord](https://discord.gg/dGN9EutdUm). Describe the workflow you are trying to build and why the current API does not cover it. Small examples are more helpful than broad feature names.
 
 ## Closed Source Note
 

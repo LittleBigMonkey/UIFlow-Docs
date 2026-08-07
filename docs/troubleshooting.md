@@ -63,7 +63,7 @@ Each `FlowPage.Id`, `FlowModal.Id`, or `FlowPersistent.Id` must be unique within
 
 ## Support Request Checklist
 
-When asking for help, include:
+When asking for help on the [UIFlow Discord](https://discord.gg/dGN9EutdUm), include:
 
 - Unity version.
 - UIFlow version.

@@ -71,6 +71,7 @@ UIFlow is a UIToolkit-based page management and graph-driven navigation package 
 - [API Reference](api-reference.md)
 - [Samples](samples.md)
 - [Troubleshooting](troubleshooting.md)
+- [Support And Community On Discord](https://discord.gg/dGN9EutdUm)
 
 ## Source Code Policy
 
