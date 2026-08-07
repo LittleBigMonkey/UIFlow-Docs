@@ -151,10 +151,12 @@ A modal uses the same `FlowView` and `IFlowViewHandler` lifecycle as a page - bu
 
 Transitions are optional. Core navigation references the abstract `TransitionAsset` type. The LitMotion-backed implementation is `TransitionProfile`.
 
-Transition resolution for graph navigation is:
+Transition resolution for page navigation through a `PageNode` is:
 
 1. Edge override.
 2. View transition field.
 3. Graph default transition.
+
+`ModalNode` and `PersistentNode` surfaces do not fall back to graph defaults. They use edge or node transitions only, so overlays and persistent surfaces remain opt-in.
 
 `ViewTransitionMode` controls whether the leaving hide and entering show run sequentially or in parallel.

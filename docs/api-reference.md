@@ -191,6 +191,22 @@ public static bool IsPersistentShown(string id);
 
 True while the named persistent surface is shown.
 
+### ModalResult
+
+Outcome returned by `OpenModalAsync` and passed to `ModalClosed` when a modal closes.
+
+```csharp
+public readonly struct ModalResult
+{
+    public readonly string ModalId;
+    public readonly string Action;
+    public readonly object Data;
+    public bool WasDismissed { get; }
+}
+```
+
+`ModalId` identifies the modal that closed. `Action` contains the button or graph port that closed it, and `Data` contains the optional result payload. `WasDismissed` is true when the modal closed without an explicit action, such as through a backdrop click, Back, or `CloseAllModals`.
+
 ### FlowPage
 
 `FlowPage` is a `MonoBehaviour` placed on each page GameObject. It requires `UIDocument`.

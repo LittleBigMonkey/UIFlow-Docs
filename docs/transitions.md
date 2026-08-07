@@ -54,11 +54,13 @@ Add animation steps in the inspector. Built-in steps include:
 
 ## Resolution Order
 
-When graph navigation targets a view, UIFlow resolves transitions in this order:
+When graph navigation targets a `PageNode`, UIFlow resolves transitions in this order:
 
 1. Edge override.
 2. View node transition.
 3. Graph default transition.
+
+`ModalNode` and `PersistentNode` surfaces use edge or node transitions only. They do not inherit the graph defaults.
 
 ## Built-In Library
 
