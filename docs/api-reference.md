@@ -3,8 +3,6 @@ layout: page
 title: API Reference
 ---
 
-# API Reference
-
 This reference covers the public API intended for users of UIFlow. It does not include private implementation details.
 
 ## Namespace UIFlow

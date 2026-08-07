@@ -3,8 +3,6 @@ layout: page
 title: Core Concepts
 ---
 
-# Core Concepts
-
 ## NavigationGraph
 
 `NavigationGraph` is a `ScriptableObject` asset that stores nodes, edges, and default transition settings. It is the source of truth for graph-driven navigation.

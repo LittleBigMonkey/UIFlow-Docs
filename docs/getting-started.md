@@ -3,8 +3,6 @@ layout: page
 title: Getting Started
 ---
 
-# Getting Started
-
 This guide creates a basic graph-driven UI flow using the public UIFlow workflow.
 
 ## Install UIFlow

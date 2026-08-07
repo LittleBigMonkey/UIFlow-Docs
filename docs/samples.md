@@ -3,8 +3,6 @@ layout: page
 title: Samples
 ---
 
-# Samples
-
 Import samples from Unity Package Manager:
 
 1. Select `UIFlow`.

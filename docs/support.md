@@ -1,9 +1,7 @@
 ---
 layout: page
-title: Support
+title: Support And Community
 ---
-
-# Support And Community
 
 For support, questions, feature requests, and community discussions, join the official UIFlow Discord:
 

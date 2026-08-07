@@ -3,8 +3,6 @@ layout: page
 title: Transitions
 ---
 
-# Transitions
-
 Transitions are optional. Core navigation works without LitMotion. When LitMotion is installed, the `UIFlow.Transitions` assembly provides `TransitionProfile` assets.
 
 ## Enable Transitions

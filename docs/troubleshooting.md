@@ -3,8 +3,6 @@ layout: page
 title: Troubleshooting
 ---
 
-# Troubleshooting
-
 ## The First View Does Not Show
 
 Check:
