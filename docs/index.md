@@ -13,10 +13,16 @@ UIFlow is a UIToolkit-based page management and graph-driven navigation package 
 
 <section id="promo-video">
   <h2>See UIFlow In Action</h2>
-  <video class="promo" controls playsinline preload="metadata" poster="{{ '/assets/media/cover.png' | relative_url }}">
-    <source src="{{ '/assets/media/uiflow-promo.mp4' | relative_url }}" type="video/mp4">
-    Your browser does not support embedded videos. <a href="{{ '/assets/media/uiflow-promo.mp4' | relative_url }}">Download the UIFlow presentation video</a>.
-  </video>
+  <div class="promo">
+    <iframe
+      src="https://www.youtube-nocookie.com/embed/yqeOyCf7mgY"
+      title="UIFlow workflow presentation"
+      loading="lazy"
+      referrerpolicy="strict-origin-when-cross-origin"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+      allowfullscreen>
+    </iframe>
+  </div>
 </section>
 
 ## What UIFlow Provides
