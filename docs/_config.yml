@@ -6,6 +6,7 @@ permalink: pretty
 
 header_pages:
   - getting-started.md
+  - graph-view-controls.md
   - concepts.md
   - api-reference.md
   - samples.md

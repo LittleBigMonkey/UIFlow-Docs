@@ -227,6 +227,10 @@ table {
   overflow: hidden;
 }
 
+table tr:nth-child(even) {
+  background: var(--uiflow-surface-elevated);
+}
+
 table th {
   background: var(--uiflow-surface-elevated);
   color: var(--uiflow-text);

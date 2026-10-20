@@ -29,7 +29,7 @@ Tools > UIFlow > Install Dependencies
 
 1. Create a graph asset from `Create > UIFlow > Navigation Graph`.
 2. Double-click the graph asset to open the graph editor.
-3. Add one `Start` node.
+3. Use the automatically created `Start` node.
 4. Add one `Page` node for each page.
 5. Connect `Start` to the first view.
 6. Connect page ports to other pages, `GoBack`, or `GoHome` nodes.
@@ -39,6 +39,8 @@ Button ports use UIToolkit button names. A button named `next-button` inside a v
 ```csharp
 FlowManager.Trigger("Home.next-button", button.userData);
 ```
+
+See [Graph View Controls](graph-view-controls.md) for mouse controls, keyboard shortcuts, and node editing options.
 
 ## Set Up The Scene
 
